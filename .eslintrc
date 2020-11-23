@@ -1,0 +1,52 @@
+{
+    "root": true,
+    "extends": "@react-native-community",
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "simple-import-sort"],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "simple-import-sort/imports": [
+            "warn",
+            {
+                "groups": [
+                    // Node.js builtins.
+                    [
+                        "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)"
+                    ],
+                    // Packages.
+                    ["^react", "^formik", "^@material-ui", "^@?\\w"],
+                    // Services and beans
+                    ["^src/services", "^src/beans", "/services/", "/beans/"],
+                    // Fields
+                    ["^fields/", "/fields/"],
+                    // Side effect imports.
+                    ["^\\u0000"],
+                    // Parent imports.
+                    [
+                        "^src",
+                        "^components",
+                        "^\\./(?=.*/)(?!/?$)",
+                        "^\\.(?!/?$)",
+                        "^\\./?$",
+                        "^\\.\\.(?!/?$)",
+                        "^\\.\\./?$"
+                    ],
+                    // Style imports.
+                    ["^.+\\.s?css$"]
+                ]
+            }
+        ]
+    }
+}
