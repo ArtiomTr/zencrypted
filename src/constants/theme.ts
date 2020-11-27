@@ -1,0 +1,26 @@
+export const theme: ReactNativePaper.Theme = {
+    animation: { scale: 1 },
+    colors: {
+        accent: '#3f51b5',
+        backdrop: 'rgba(0, 0, 0, 0.5)',
+        background: '#050406',
+        disabled: 'rgba(255, 255, 255, 0.38)',
+        error: '#CF6679',
+        notification: '#ff80ab',
+        onBackground: '#e4e8ee',
+        onSurface: '#e4e8ee',
+        placeholder: 'rgba(255, 255, 255, 0.54)',
+        primary: '#3f51b5',
+        surface: '#262626',
+        text: '#e4e8ee',
+    },
+    dark: true,
+    fonts: {
+        light: { fontFamily: 'Poppins-Light', fontWeight: 'normal' },
+        medium: { fontFamily: 'Poppins-Medium', fontWeight: 'normal' },
+        regular: { fontFamily: 'Poppins-Regular', fontWeight: 'normal' },
+        thin: { fontFamily: 'Poppins-Thin', fontWeight: 'normal' },
+    },
+    mode: 'adaptive',
+    roundness: 4,
+};
