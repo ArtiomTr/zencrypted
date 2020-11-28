@@ -2,6 +2,8 @@ import React from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Account } from 'logic/schemas/Account';
+import { RealmModelProvider } from 'utils/realm/react/RealmModelProvider';
 
 import { renderTabBar } from 'components/auth/TabBar';
 import { Background } from 'components/material/Background';
@@ -12,8 +14,8 @@ export const SCREEN_KEY_AUTH = 'auth';
 
 const Tab = createBottomTabNavigator();
 
-export const Auth = () => {
-    return (
+export const Auth = () => (
+    <RealmModelProvider model={Account}>
         <Background style={authBaseStyles.imageBackground}>
             <StatusBar hidden />
             <SafeAreaView style={authBaseStyles.imageBackground}>
@@ -39,8 +41,8 @@ export const Auth = () => {
                 </Tab.Navigator>
             </SafeAreaView>
         </Background>
-    );
-};
+    </RealmModelProvider>
+);
 
 const authBaseStyles = StyleSheet.create({
     imageBackground: {

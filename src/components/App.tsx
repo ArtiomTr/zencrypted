@@ -14,22 +14,20 @@ import { theme } from '../constants/theme';
 
 const Stack = createStackNavigator();
 
-const App = () => {
-    return (
-        <PaperProvider theme={theme} settings={settings}>
-            <SafeAreaProvider>
-                <NavigationContainer>
-                    <Stack.Navigator
-                        screenOptions={{
-                            headerShown: false,
-                        }}
-                    >
-                        <Stack.Screen name={SCREEN_KEY_AUTH} component={Auth} />
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </SafeAreaProvider>
-        </PaperProvider>
-    );
-};
+const App = () => (
+    <PaperProvider theme={theme} settings={settings}>
+        <SafeAreaProvider>
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                    }}
+                >
+                    <Stack.Screen name={SCREEN_KEY_AUTH} component={Auth} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
+    </PaperProvider>
+);
 
 export default App;

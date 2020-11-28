@@ -46,6 +46,7 @@
     "react-native-tcp": "^3.3.2",
     "react-native-udp": "^2.7.0",
     "react-native-vector-icons": "^7.1.0",
+    "react-realm-context": "^0.3.0",
     "readable-stream": "^1.0.33",
     "realm": "^10.0.1",
     "reflect-metadata": "^0.1.13",
