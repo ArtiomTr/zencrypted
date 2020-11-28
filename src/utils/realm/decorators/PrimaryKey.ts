@@ -1,6 +1,6 @@
 import { PropertyConfig } from './Property';
-import { realmTypeFromConstructor } from './realmTypeFromConstructor';
-import { registerProperty } from './registerProperty';
+import { realmTypeFromConstructor } from '../realmTypeFromConstructor';
+import { registerProperty } from '../registerProperty';
 
 export const PRIMARY_KEY_METADATA_KEY = Symbol('primaryKey');
 

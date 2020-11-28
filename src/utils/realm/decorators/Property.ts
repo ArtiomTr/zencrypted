@@ -1,13 +1,16 @@
 import 'reflect-metadata';
 
-import { PropertyType } from 'realm';
+import { ObjectSchema, ObjectSchemaProperty, PropertyType } from 'realm';
 
-import { realmTypeFromConstructor } from './realmTypeFromConstructor';
-import { registerProperty } from './registerProperty';
+import { realmTypeFromConstructor } from '../realmTypeFromConstructor';
+import { registerProperty } from '../registerProperty';
+
+export type RealmType = PropertyType | ObjectSchemaProperty | ObjectSchema;
 
 export type PropertyConfig = {
-    type?: PropertyType | Function;
+    type?: RealmType | Function;
     optional?: boolean;
+    defaultValue?: any;
 };
 
 export const Property = (config?: PropertyConfig) => {

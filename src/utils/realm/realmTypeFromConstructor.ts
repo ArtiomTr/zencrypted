@@ -1,15 +1,17 @@
-import { PropertyType } from 'realm';
-
-import { PropertyConfig } from './Property';
+import { PropertyConfig, RealmType } from './decorators/Property';
 
 export const realmTypeFromConstructor = (
     type: Function,
     key: string,
     objectName: string,
-    { type: definedType, optional }: PropertyConfig = {},
+    { type: definedType, optional, defaultValue }: PropertyConfig = {},
     resolveNumberAs: 'int' | 'float' | 'double' = 'float',
-): string => {
-    const inputType: Function | PropertyType = definedType ?? type;
+): RealmType => {
+    if (definedType && typeof definedType !== 'function' && typeof definedType !== 'string') {
+        return definedType;
+    }
+
+    const inputType: Function | RealmType = definedType ?? type;
 
     if (inputType === Array) {
         throw new Error(
@@ -17,9 +19,9 @@ export const realmTypeFromConstructor = (
         );
     }
 
-    let realmType: PropertyType = '';
+    let realmType: RealmType = '';
 
-    if (typeof inputType === 'string') {
+    if (typeof inputType !== 'function') {
         realmType = inputType;
     } else if (inputType === Number) {
         realmType = resolveNumberAs;
@@ -33,8 +35,13 @@ export const realmTypeFromConstructor = (
         realmType = inputType.name;
     }
 
-    if (optional) {
-        return realmType + '?';
+    realmType = optional ? `${realmType}?` : realmType;
+
+    if (defaultValue) {
+        return {
+            type: realmType,
+            default: defaultValue,
+        };
     }
 
     return realmType;
