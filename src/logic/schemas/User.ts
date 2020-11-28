@@ -1,6 +1,6 @@
-import { Model } from 'utils/realm/Model';
-import { PrimaryKey } from 'utils/realm/PrimaryKey';
-import { Property } from 'utils/realm/Property';
+import { Model } from 'utils/realm/decorators/Model';
+import { PrimaryKey } from 'utils/realm/decorators/PrimaryKey';
+import { Property } from 'utils/realm/decorators/Property';
 
 @Model()
 export class User {

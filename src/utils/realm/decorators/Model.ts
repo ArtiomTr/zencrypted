@@ -1,7 +1,7 @@
 import Realm from 'realm';
 
 import { PRIMARY_KEY_METADATA_KEY } from './PrimaryKey';
-import { PROPERTIES_METADATA_KEY } from './registerProperty';
+import { PROPERTIES_METADATA_KEY } from '../registerProperty';
 
 export const Model = <T extends { new (...args: any[]): any }>(customName?: string) => {
     return (constructorFn: T) => {
