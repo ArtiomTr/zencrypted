@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { StyleSheet, TextStyle, View } from 'react-native';
-import { HelperText, Text, TextInput } from 'react-native-paper';
+import { HelperText, TextInput } from 'react-native-paper';
 import { DefaultFieldContextProps, FieldValidator, useDefaultFieldContext } from 'morfix';
 
 export type StringFieldProps = {
