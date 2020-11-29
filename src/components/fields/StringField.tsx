@@ -5,6 +5,10 @@ import { DefaultFieldContextProps, FieldValidator, useDefaultFieldContext } from
 
 export type StringFieldProps = {
     required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    displayMaxLengthHelper?: boolean;
+    onlyWordCharacters?: boolean;
 } & DefaultFieldContextProps<string> &
     React.ComponentProps<typeof TextInput>;
 
@@ -14,6 +18,10 @@ export const StringField = ({
     schema,
     required,
     style,
+    minLength,
+    maxLength,
+    displayMaxLengthHelper = false,
+    onlyWordCharacters,
     ...other
 }: StringFieldProps) => {
     const validator: FieldValidator<string> = useCallback(
@@ -23,9 +31,24 @@ export const StringField = ({
                     mrfxError: 'Required',
                 };
             }
+            if (minLength && value.trim().length < minLength) {
+                return {
+                    mrfxError: `Should be longer than ${minLength}`,
+                };
+            }
+            if (maxLength && value.trim().length > maxLength) {
+                return {
+                    mrfxError: `Shouldn't be longer than ${maxLength}`,
+                };
+            }
+            if (onlyWordCharacters && !/^\w*$/.test(value)) {
+                return {
+                    mrfxError: 'Only characters A-z, 0-9 are accepted',
+                };
+            }
             return validatorFn?.(value);
         },
-        [validatorFn, required],
+        [validatorFn, required, minLength, maxLength, onlyWordCharacters],
     );
 
     const {
@@ -34,28 +57,37 @@ export const StringField = ({
         meta: { error, touched },
     } = useDefaultFieldContext({ name, validator, schema });
 
+    const hasError = touched?.mrfxTouched && !!error?.mrfxError;
+
     return (
         <View>
             <TextInput
                 dense
                 {...other}
-                style={StyleSheet.compose(styles.field, style)}
+                style={StyleSheet.compose<TextStyle>(styles.field, style)}
                 value={value}
-                error={touched?.mrfxTouched && !!error?.mrfxError}
+                error={hasError}
                 onChangeText={setValue}
                 onBlur={() => setTouched({ mrfxTouched: true })}
             />
-            {error?.mrfxError && touched?.mrfxTouched && (
-                <HelperText type="error">{error.mrfxError}</HelperText>
-            )}
+            <View style={styles.helperTextContainer}>
+                <HelperText visible={hasError} type="error">
+                    {error?.mrfxError}
+                </HelperText>
+                <HelperText visible={displayMaxLengthHelper && !!maxLength} type="info">
+                    {value.trim().length}/{maxLength}
+                </HelperText>
+            </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create<{
-    field: TextStyle;
-}>({
+const styles = StyleSheet.create({
     field: {
         backgroundColor: 'rgba(255,255,255,0.04)',
+    },
+    helperTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
 });

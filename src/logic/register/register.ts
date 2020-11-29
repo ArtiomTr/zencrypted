@@ -1,13 +1,19 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Account } from 'logic/schemas/Account';
+import { RealmModelControl } from 'utils/realm/realmModelControl';
 
-import { hashConfig, STORAGE_KEY_HASH, STORAGE_KEY_SALT } from './constants';
+import { hashConfig } from './constants';
 import { hashPassword } from './hashPassword';
 
-export const register = async (password: string): Promise<void> => {
-    const { hash, salt } = hashPassword(password, hashConfig);
-
-    await AsyncStorage.multiSet([
-        [STORAGE_KEY_SALT, salt],
-        [STORAGE_KEY_HASH, hash],
-    ]);
+export const register = async (
+    control: RealmModelControl<Account>,
+    name: string,
+    password: string,
+): Promise<void> => {
+    const { hash, salt } = hashPassword(password.trim(), hashConfig);
+    control.create({
+        passwordHash: hash,
+        salt,
+        name: name.trim(),
+    });
+    return Promise.resolve();
 };
