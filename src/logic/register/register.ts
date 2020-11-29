@@ -9,11 +9,11 @@ export const register = async (
     name: string,
     password: string,
 ): Promise<void> => {
-    const { hash, salt } = hashPassword(password, hashConfig);
+    const { hash, salt } = hashPassword(password.trim(), hashConfig);
     control.create({
         passwordHash: hash,
         salt,
-        name,
+        name: name.trim(),
     });
     return Promise.resolve();
 };
