@@ -16,9 +16,9 @@ const Tab = createBottomTabNavigator();
 
 export const Auth = () => (
     <RealmModelProvider model={Account}>
-        <Background style={authBaseStyles.imageBackground}>
+        <Background style={authBaseStyles.background}>
             <StatusBar hidden />
-            <SafeAreaView style={authBaseStyles.imageBackground}>
+            <SafeAreaView style={authBaseStyles.background}>
                 <Tab.Navigator
                     sceneContainerStyle={authBaseStyles.sceneContainerStyle}
                     tabBar={renderTabBar}
@@ -45,7 +45,7 @@ export const Auth = () => (
 );
 
 const authBaseStyles = StyleSheet.create({
-    imageBackground: {
+    background: {
         height: '100%',
     },
     sceneContainerStyle: {

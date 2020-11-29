@@ -23,6 +23,7 @@ const App = () => (
                     screenOptions={{
                         headerShown: false,
                     }}
+                    initialRouteName={SCREEN_KEY_SLIDES}
                 >
                     <Stack.Screen name={SCREEN_KEY_AUTH} component={Auth} />
                     <Stack.Screen name={SCREEN_KEY_SLIDES} component={Slides} />

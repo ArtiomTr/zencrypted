@@ -1,11 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text } from 'react-native';
 
 export const SCREEN_KEY_TEST = 'test';
 
-export const Test = () => (
-    <View>
-        <Text>Test</Text>
-    </View>
-);
+export const Test = () => <Text>Test</Text>;
