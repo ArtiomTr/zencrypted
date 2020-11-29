@@ -4,6 +4,7 @@ import { RealmModel } from './RealmModel';
 
 export type RealmModelControl<T extends RealmModel> = {
     create: (values: Partial<T>) => void;
+    items: Realm.Results<T>;
 };
 
 export const createRealmModelControl = <T extends RealmModel>(
@@ -30,5 +31,6 @@ export const createRealmModelControl = <T extends RealmModel>(
                 realm.create((model as any)._schema.name, values);
             });
         },
+        items: realm.objects(schema.name),
     };
 };

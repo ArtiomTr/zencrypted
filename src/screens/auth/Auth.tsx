@@ -58,9 +58,6 @@ export const authSharedStyles = StyleSheet.create({
     headingContainer: {
         marginVertical: 30,
     },
-    field: {
-        marginVertical: 5,
-    },
     buttonContainer: {
         display: 'flex',
         alignItems: 'center',
