@@ -12,6 +12,7 @@ import { PasswordField } from 'components/fields/PasswordField';
 import { StringField } from 'components/fields/StringField';
 import { Typography } from 'components/material/Typography';
 import { WhiteSubmitButton } from 'components/material/WhiteSubmitButton';
+import { useZencryptState } from 'components/zencryptState/ZencryptStateContext';
 import { authSharedStyles as styles } from './Auth';
 
 export const SCREEN_KEY_REGISTER = 'register';
@@ -45,6 +46,8 @@ const createFormValidator = (realmControl: RealmModelControl<Account>) => {
 export const Register = () => {
     const { navigate } = useNavigation();
 
+    const { setLoggedAccount } = useZencryptState();
+
     return (
         <RealmModelConsumer model={Account}>
             {({ control }) => (
@@ -61,8 +64,7 @@ export const Register = () => {
                         }}
                         validateForm={createFormValidator(control)}
                         onSubmit={async ({ name, password }) => {
-                            await register(control, name, password);
-
+                            setLoggedAccount(await register(control, name, password));
                             navigate(SCREEN_KEY_SLIDES);
                         }}
                     >

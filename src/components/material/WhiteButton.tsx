@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import Icon from './Icon';
@@ -7,6 +7,7 @@ import Icon from './Icon';
 export type WhiteButtonProps = React.ComponentProps<typeof Button> & {
     active?: boolean;
     iconReverse?: boolean;
+    dense?: boolean;
 };
 
 export const WhiteButton = ({
@@ -16,6 +17,8 @@ export const WhiteButton = ({
     style,
     iconReverse,
     icon,
+    dense,
+    labelStyle,
     ...other
 }: WhiteButtonProps) => {
     return (
@@ -26,12 +29,23 @@ export const WhiteButton = ({
             {...other}
             icon={
                 typeof icon === 'string'
-                    ? (props) => <Icon {...props} size={20} name={icon} />
+                    ? (props) => (
+                          <Icon
+                              {...props}
+                              style={iconReverse && styles.iconReverse}
+                              size={20}
+                              name={icon}
+                          />
+                      )
                     : icon
             }
+            labelStyle={StyleSheet.compose<TextStyle>(
+                dense ? styles.denseLabel : undefined,
+                labelStyle,
+            )}
             contentStyle={StyleSheet.compose<ViewStyle>(
                 [
-                    styles.content,
+                    dense ? styles.denseContent : styles.content,
                     {
                         flexDirection: iconReverse ? 'row-reverse' : 'row',
                     },
@@ -46,9 +60,21 @@ export const WhiteButton = ({
 };
 
 const styles = StyleSheet.create({
+    denseContent: {
+        paddingHorizontal: 5,
+        margin: 0,
+    },
+    iconReverse: {
+        marginRight: 10,
+    },
     content: {
         paddingHorizontal: 10,
         paddingVertical: 3,
+    },
+    denseLabel: {
+        marginHorizontal: 5,
+        marginVertical: 5,
+        marginRight: 0,
     },
     main: {
         borderRadius: 13,
