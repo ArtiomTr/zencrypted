@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, View } from 'react-native';
 import { BottomTabBarOptions, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
+import { WhiteButton } from 'components/material/WhiteButton';
+
 type TabBarProps = BottomTabBarProps<BottomTabBarOptions>;
 
 const IN_ANIM_DURATION = 100;
@@ -9,7 +11,7 @@ const OUT_ANIM_DURATION = 150;
 const DOT_WIDTH = 10;
 const DOT_MARGIN = 5;
 
-const TabBar = ({ state, descriptors }: TabBarProps) => {
+const TabBar = ({ state, descriptors, navigation: { navigate, goBack } }: TabBarProps) => {
     const activeIndex = state.routes.findIndex((route) =>
         descriptors[route.key].navigation.isFocused(),
     );
@@ -75,6 +77,43 @@ const TabBar = ({ state, descriptors }: TabBarProps) => {
 
     return (
         <View style={styles.barWrapper}>
+            <View style={styles.navButtonsWrapper}>
+                {activeIndex > 0 ? (
+                    <WhiteButton
+                        onPress={goBack}
+                        icon="arrow-back-outline"
+                        dense
+                        iconReverse
+                        active={false}
+                    >
+                        Back
+                    </WhiteButton>
+                ) : (
+                    <WhiteButton
+                        onPress={() => {}}
+                        icon="close-outline"
+                        dense
+                        iconReverse
+                        active={false}
+                    >
+                        Skip
+                    </WhiteButton>
+                )}
+                {activeIndex < state.routes.length - 1 ? (
+                    <WhiteButton
+                        dense
+                        onPress={() => navigate(state.routes[activeIndex + 1].name)}
+                        iconReverse
+                        icon="arrow-forward-outline"
+                    >
+                        Next
+                    </WhiteButton>
+                ) : (
+                    <WhiteButton dense onPress={() => {}} iconReverse icon="checkmark-outline">
+                        Finish
+                    </WhiteButton>
+                )}
+            </View>
             <View
                 style={[
                     styles.tabWrapper,
@@ -123,5 +162,12 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         margin: 5,
+    },
+    navButtonsWrapper: {
+        width: '80%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginVertical: 20,
+        flexDirection: 'row',
     },
 });

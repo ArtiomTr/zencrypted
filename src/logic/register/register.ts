@@ -8,12 +8,11 @@ export const register = async (
     control: RealmModelControl<Account>,
     name: string,
     password: string,
-): Promise<void> => {
+): Promise<Account> => {
     const { hash, salt } = hashPassword(password.trim(), hashConfig);
-    control.create({
+    return await control.create({
         passwordHash: hash,
         salt,
         name: name.trim(),
     });
-    return Promise.resolve();
 };
